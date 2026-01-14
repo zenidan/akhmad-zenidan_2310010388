@@ -2,6 +2,18 @@ package configDB;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.util.Set;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class tbl_surat_masuk {
     private String namadb = "pbo2_2310010388"; // sesuai database di phpMyAdmin
@@ -120,4 +132,43 @@ public class tbl_surat_masuk {
     }
     return rs;
 }
+         public void cetakLaporan(String fileLaporan, String SQL){
+        try {
+            File file = new File(fileLaporan);
+            JasperDesign jasDes = JRXmlLoader.load(file);
+            JRDesignQuery query = new JRDesignQuery();
+            query.setText(SQL);
+            jasDes.setQuery(query);
+            JasperReport jr = JasperCompileManager.compileReport(jasDes);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, this.koneksi);
+            JasperViewer.viewReport(jp);
+            
+        } catch (Exception e) {
+        }
+    }
+         
+         public ResultSet cariSuratMasuk(String keyword) {
+    try {
+        String sql = "SELECT * FROM tbl_surat_masuk WHERE "
+                   + "id LIKE ? OR "
+                   + "no_surat LIKE ? OR "
+                   + "perihal_surat LIKE ? OR "
+                   + "isi_surat LIKE ? OR "
+                   + "tanggal_surat LIKE ? OR "
+                   + "perkara LIKE ?";
+
+        PreparedStatement pst = koneksi.prepareStatement(sql);
+        for (int i = 1; i <= 6; i++) {
+            pst.setString(i, "%" + keyword + "%");
+        }
+
+        return pst.executeQuery();
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null,
+            "Gagal mencari surat masuk: " + e.getMessage());
+        return null;
+    }
 }
+}
+

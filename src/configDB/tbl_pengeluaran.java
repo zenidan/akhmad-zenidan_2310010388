@@ -11,6 +11,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.util.Set;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -117,4 +129,44 @@ public class tbl_pengeluaran {
             e.printStackTrace();
         }
     }
+     public void cetakLaporan(String fileLaporan, String SQL){
+        try {
+            File file = new File(fileLaporan);
+            JasperDesign jasDes = JRXmlLoader.load(file);
+            JRDesignQuery query = new JRDesignQuery();
+            query.setText(SQL);
+            jasDes.setQuery(query);
+            JasperReport jr = JasperCompileManager.compileReport(jasDes);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, this.koneksi);
+            JasperViewer.viewReport(jp);
+            
+        } catch (Exception e) {
+        }
+    }
+     
+     // === PENCARIAN DATA PENGELUARAN ===
+public ResultSet cariPengeluaran(String keyword) {
+    try {
+        String sql = "SELECT * FROM tbl_pengeluaran WHERE "
+                   + "id LIKE ? OR "
+                   + "tanggal_pengeluaran LIKE ? OR "
+                   + "nama_pengeluaran LIKE ? OR "
+                   + "nominal LIKE ? OR "
+                   + "keterangan LIKE ?";
+
+        PreparedStatement pst = koneksi.prepareStatement(sql);
+        pst.setString(1, "%" + keyword + "%");
+        pst.setString(2, "%" + keyword + "%");
+        pst.setString(3, "%" + keyword + "%");
+        pst.setString(4, "%" + keyword + "%");
+        pst.setString(5, "%" + keyword + "%");
+
+        return pst.executeQuery();
+
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal mencari data: " + e.getMessage());
+        return null;
+    }
+}
+
 }

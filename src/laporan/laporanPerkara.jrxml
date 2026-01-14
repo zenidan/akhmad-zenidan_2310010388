@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="751e29bb-9413-4121-ac0a-4dfb880c3a58">
+	<property name="ireport.zoom" value="0.7513148009015777"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select * from tbl_perkara]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nama_perkara" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="uud_perkara" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="31" y="1" width="100" height="20" uuid="e31611eb-f14a-460e-93dd-bd9f7d648cdf"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="182" y="1" width="100" height="20" uuid="028523cb-0778-4ea7-b971-999c92cb5484"/>
+				<text><![CDATA[nama_perkara]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="358" y="1" width="100" height="20" uuid="9f679dff-a531-4bf3-a884-ab8b2b75393b"/>
+				<text><![CDATA[uud_perkara]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="63" splitType="Stretch">
+			<textField>
+				<reportElement x="31" y="43" width="100" height="20" uuid="81b15417-9c17-463d-af6a-e72e0ad286a1"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="182" y="43" width="100" height="20" uuid="a02e1685-9097-4af2-9a0a-9ff9109a824f"/>
+				<textFieldExpression><![CDATA[$F{nama_perkara}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="358" y="43" width="100" height="20" uuid="de2d6a1b-6642-45a4-9efb-1dfa7de03d6c"/>
+				<textFieldExpression><![CDATA[$F{uud_perkara}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -27,6 +27,18 @@ public class frame_surat_masuk extends javax.swing.JFrame {
     public frame_surat_masuk() {
         initComponents();
         tampilData();
+           jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int row = jTable1.getSelectedRow();
+            txtid.setText(jTable1.getValueAt(row, 0).toString());
+            txtno_surat.setText(jTable1.getValueAt(row, 1).toString());
+            txtperihal.setText(jTable1.getValueAt(row, 2).toString());
+            txtisi.setText(jTable1.getValueAt(row, 3).toString());
+            txttanggal.setText(jTable1.getValueAt(row, 4).toString());
+            txtperkara.setText(jTable1.getValueAt(row, 5).toString());
+        }
+    });
     }
 
     /**
@@ -56,6 +68,8 @@ public class frame_surat_masuk extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btnLaporan = new javax.swing.JButton();
+        txtCari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -144,6 +158,19 @@ public class frame_surat_masuk extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnLaporan.setText("Cetak Laporan");
+        btnLaporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaporanActionPerformed(evt);
+            }
+        });
+
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCariKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -168,11 +195,18 @@ public class frame_surat_masuk extends javax.swing.JFrame {
                             .addComponent(jLabel6)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnLaporan)
+                            .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -188,10 +222,11 @@ public class frame_surat_masuk extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel7)
                 .addGap(19, 19, 19)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtid, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtid, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jButton1)))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtno_surat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -203,13 +238,16 @@ public class frame_surat_masuk extends javax.swing.JFrame {
                     .addComponent(jLabel3)
                     .addComponent(jButton3))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtisi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnLaporan))
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txttanggal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
+                    .addComponent(jLabel5)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -320,6 +358,38 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_txttanggalActionPerformed
 
+    private void btnLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaporanActionPerformed
+        // TODO add your handling code here:
+         try {
+        String file = "src/laporan/laporanSuratMasuk.jrxml";
+
+        String sql;
+        if (txtCari.getText().isEmpty()) {
+            sql = "SELECT * FROM tbl_surat_masuk";
+        } else {
+            sql = "SELECT * FROM tbl_surat_masuk WHERE "
+                + "id LIKE '%" + txtCari.getText() + "%' OR "
+                + "no_surat LIKE '%" + txtCari.getText() + "%' OR "
+                + "perihal_surat LIKE '%" + txtCari.getText() + "%' OR "
+                + "isi_surat LIKE '%" + txtCari.getText() + "%' OR "
+                + "tanggal_surat LIKE '%" + txtCari.getText() + "%' OR "
+                + "perkara LIKE '%" + txtCari.getText() + "%'";
+        }
+
+        surat.cetakLaporan(file, sql);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this,
+            "Gagal mencetak laporan: " + e);
+        e.printStackTrace();
+    }
+    }//GEN-LAST:event_btnLaporanActionPerformed
+
+    private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
+        // TODO add your handling code here:
+        tampilCariSuratMasuk();
+    }//GEN-LAST:event_txtCariKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -356,6 +426,7 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLaporan;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -368,6 +439,7 @@ try {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtisi;
     private javax.swing.JTextField txtno_surat;
@@ -385,8 +457,9 @@ private void tampilData() {
         model.addColumn("Tanggal Surat");
         model.addColumn("Perkara");
 
-        ResultSet rs = surat.tampilSurat(); // ambil data dari tbl_surat_masuk
-        while (rs.next()) {
+        ResultSet rs = surat.tampilSurat(); // PAKAI objek surat
+
+        while (rs != null && rs.next()) {
             model.addRow(new Object[]{
                 rs.getInt("id"),
                 rs.getString("no_surat"),
@@ -396,9 +469,46 @@ private void tampilData() {
                 rs.getString("perkara")
             });
         }
+
         jTable1.setModel(model);
+
     } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Gagal menampilkan data: " + e.getMessage());
+        JOptionPane.showMessageDialog(this,
+            "Gagal menampilkan data: " + e);
+        e.printStackTrace();
+    }
+}
+
+
+private void tampilCariSuratMasuk() {
+    try {
+        ResultSet rs = surat.cariSuratMasuk(txtCari.getText());
+
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("ID");
+        model.addColumn("No Surat");
+        model.addColumn("Perihal Surat");
+        model.addColumn("Isi Surat");
+        model.addColumn("Tanggal Surat");
+        model.addColumn("Perkara");
+
+        while (rs != null && rs.next()) {
+            model.addRow(new Object[]{
+                rs.getInt("id"),
+                rs.getString("no_surat"),
+                rs.getString("perihal_surat"),
+                rs.getString("isi_surat"),
+                rs.getDate("tanggal_surat"),
+                rs.getString("perkara")
+            });
+        }
+
+        jTable1.setModel(model);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this,
+            "Gagal mencari data: " + e);
+        e.printStackTrace();
     }
 }
 }

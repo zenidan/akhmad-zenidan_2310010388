@@ -4,17 +4,18 @@
  */
 package pbo2_2310010388;
 
-/**
- *
- * @author Lenovo
- */
+import frame.frameUtama;
+
 public class PBO2_2310010388 {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new frameUtama().setVisible(true);
+            }
+        });
+
     }
-    
 }

@@ -22,6 +22,15 @@ public class frame_perkara extends javax.swing.JFrame {
     public frame_perkara() {
         initComponents();
         tampilData();
+          jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+        @Override
+        public void mouseClicked(java.awt.event.MouseEvent evt) {
+            int row = jTable1.getSelectedRow();
+            txtid.setText(jTable1.getValueAt(row, 0).toString());
+            txtnama_perkara.setText(jTable1.getValueAt(row, 1).toString());
+            txtuud_perkara.setText(jTable1.getValueAt(row, 2).toString());
+        }
+    });
     }
 
     /**
@@ -45,6 +54,8 @@ public class frame_perkara extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        btnLaporan = new javax.swing.JButton();
+        txtCari = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -106,6 +117,24 @@ public class frame_perkara extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable1);
 
+        btnLaporan.setText("Cetak Laporan");
+        btnLaporan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLaporanActionPerformed(evt);
+            }
+        });
+
+        txtCari.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCariActionPerformed(evt);
+            }
+        });
+        txtCari.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtCariKeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,6 +166,11 @@ public class frame_perkara extends javax.swing.JFrame {
                         .addComponent(jLabel4)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(147, 147, 147)
+                .addComponent(btnLaporan)
+                .addGap(49, 49, 49)
+                .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,7 +199,11 @@ public class frame_perkara extends javax.swing.JFrame {
                     .addComponent(jButton1)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
-                .addGap(65, 65, 65))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnLaporan)
+                    .addComponent(txtCari, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(24, 24, 24))
         );
 
         pack();
@@ -230,6 +268,41 @@ public class frame_perkara extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnama_perkaraActionPerformed
 
+    private void txtCariActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCariActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCariActionPerformed
+
+    private void btnLaporanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLaporanActionPerformed
+        // TODO add your handling code here:
+         try {
+        tbl_perkara laporan = new tbl_perkara();
+
+        String file ="src/laporan/laporanPerkara.jrxml";
+
+
+        String sql;
+        if (txtCari.getText().equals("")) {
+            sql = "SELECT * FROM tbl_perkara";
+        } else {
+            sql = "SELECT * FROM tbl_perkara WHERE "
+                + "id LIKE '%" + txtCari.getText() + "%' OR "
+                + "nama_perkara LIKE '%" + txtCari.getText() + "%' OR "
+                + "uud_perkara LIKE '%" + txtCari.getText() + "%'";
+        }
+
+        laporan.cetakLaporan(file, sql);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this,
+            "Gagal mencetak laporan: " + e.getMessage());
+    }
+    }//GEN-LAST:event_btnLaporanActionPerformed
+
+    private void txtCariKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCariKeyReleased
+        // TODO add your handling code here:
+        tampilCariPerkara();
+    }//GEN-LAST:event_txtCariKeyReleased
+
     /**
      * @param args the command line arguments
      */
@@ -266,6 +339,7 @@ public class frame_perkara extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnLaporan;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -275,6 +349,7 @@ public class frame_perkara extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtCari;
     private javax.swing.JTextField txtid;
     private javax.swing.JTextField txtnama_perkara;
     private javax.swing.JTextField txtuud_perkara;
@@ -309,4 +384,30 @@ private void tampilData() {
             JOptionPane.showMessageDialog(this, "Gagal menampilkan data: " + e.getMessage());
         }
     }
+
+private void tampilCariPerkara() {
+    try {
+        tbl_perkara model = new tbl_perkara();
+        ResultSet rs = model.cariPerkara(txtCari.getText());
+
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("ID");
+        tableModel.addColumn("Nama Perkara");
+        tableModel.addColumn("UUD Perkara");
+
+        while (rs.next()) {
+            tableModel.addRow(new Object[]{
+                rs.getInt("id"),
+                rs.getString("nama_perkara"),
+                rs.getString("uud_perkara")
+            });
+        }
+
+        jTable1.setModel(tableModel);
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(this,
+            "Gagal mencari data perkara: " + e.getMessage());
+    }
+}
 }

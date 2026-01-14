@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2a9f05e2-7457-43b6-812a-8565c22056fa">
+	<property name="ireport.zoom" value="0.6830134553650705"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select * from tbl_pemasukan]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tanggal_pemasukan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nominal" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="asal_pemasukan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="keterangan" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="41" width="100" height="20" uuid="68a813d9-7e97-4d3f-b794-5246356cb4e1"/>
+				<text><![CDATA[id]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="41" width="100" height="20" uuid="6be1f249-ec05-48e6-803b-98509234f2d0"/>
+				<text><![CDATA[tanggal_pemasukan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="41" width="100" height="20" uuid="7c489657-0619-4679-b3ff-c5ecdca8a3f4"/>
+				<text><![CDATA[nominal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="41" width="100" height="20" uuid="b272ed2b-7775-4568-92d1-3bf897552b6d"/>
+				<text><![CDATA[asal_pemasukan]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="415" y="41" width="100" height="20" uuid="7bbad932-5063-4f40-92e0-c9aa2badefe4"/>
+				<text><![CDATA[keterangan]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<textField>
+				<reportElement x="400" y="36" width="100" height="20" uuid="58265884-0ef7-4ce7-80bf-cb4c0e716b9d"/>
+				<textFieldExpression><![CDATA[$F{id}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="300" y="36" width="100" height="20" uuid="777d2e25-b78a-45cd-8e03-501ccb78131d"/>
+				<textFieldExpression><![CDATA[$F{tanggal_pemasukan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="200" y="36" width="100" height="20" uuid="661d4066-b448-4266-a86c-692dc2109a98"/>
+				<textFieldExpression><![CDATA[$F{nominal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="36" width="100" height="20" uuid="eeb136de-9960-4ce2-a096-6b592806c817"/>
+				<textFieldExpression><![CDATA[$F{asal_pemasukan}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="36" width="100" height="20" uuid="ab39bde0-7b99-4a95-bc4b-721da111a2e8"/>
+				<textFieldExpression><![CDATA[$F{keterangan}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

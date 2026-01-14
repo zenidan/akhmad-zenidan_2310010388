@@ -1,3 +1,4 @@
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
@@ -12,6 +13,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import java.io.File;
+import java.util.Set;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.design.JRDesignQuery;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -119,4 +132,39 @@ public class tbl_pemasukan {
             e.printStackTrace();
         }
     }
+    public void cetakLaporan(String fileLaporan, String SQL){
+        try {
+            File file = new File(fileLaporan);
+            JasperDesign jasDes = JRXmlLoader.load(file);
+            JRDesignQuery query = new JRDesignQuery();
+            query.setText(SQL);
+            jasDes.setQuery(query);
+            JasperReport jr = JasperCompileManager.compileReport(jasDes);
+            JasperPrint jp = JasperFillManager.fillReport(jr, null, this.koneksi);
+            JasperViewer.viewReport(jp);
+            
+        } catch (Exception e) {
+        }
+    }
+    
+    // === PENCARIAN DATA PEMASUKAN ===
+public ResultSet cariPemasukan(String keyword) {
+    ResultSet rs = null;
+    try {
+        String sql = "SELECT * FROM tbl_pemasukan " +
+                     "WHERE tanggal_pemasukan LIKE ? " +
+                     "OR asal_pemasukan LIKE ? " +
+                     "OR keterangan LIKE ?";
+        PreparedStatement ps = koneksi.prepareStatement(sql);
+        ps.setString(1, "%" + keyword + "%");
+        ps.setString(2, "%" + keyword + "%");
+        ps.setString(3, "%" + keyword + "%");
+
+        rs = ps.executeQuery();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Gagal mencari data: " + e.getMessage());
+    }
+    return rs;
+}
+
 }
